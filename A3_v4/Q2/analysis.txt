@@ -1,0 +1,43 @@
+Action: ['right', 'right']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'b_buffer']]
+
+Success case 1
+Sentence: [ROOT] A man dressed in a tux holds a violin .
+Actions: ['shift', 'left', 'shift', 'right', 'right', 'shift', 'left', 'right', 'reduce', 'reduce', 'reduce', 'left', 'right', 'shift', 'left', 'right', 'reduce', 'right']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'man_buffer'], ['[root]_stack', 'man_buffer']] ....
+--------
+Success case 2
+Sentence: [ROOT] A small cheese pizza is hot on the pan .
+Actions: ['shift', 'shift', 'shift', 'left', 'left', 'left', 'shift', 'left', 'right', 'right', 'reduce', 'right', 'shift', 'left', 'right', 'reduce', 'reduce', 'right']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'small_buffer'], ['small_stack', 'cheese_buffer']] ....
+--------
+Success case 3
+Sentence: [ROOT] A woman at a restaurant sits in front of a finished plate .
+Actions: ['shift', 'left', 'shift', 'right', 'shift', 'left', 'right', 'reduce', 'reduce', 'left', 'right', 'right', 'right', 'right', 'shift', 'shift', 'left', 'left', 'right', 'reduce', 'reduce', 'reduce', 'reduce', 'right']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'woman_buffer'], ['[root]_stack', 'woman_buffer']] ....
+--------
+Fail case 1
+['[ROOT]', 'A', 'doughnut', 'that', 'a', 'person', 'is', 'using', 'to', 'see', 'out', 'of', '.']
+Actions: ['shift', 'left', 'right', 'shift', 'shift', 'left', 'shift', 'shift', 'left', 'left', 'shift', 'shift', 'left', 'right', 'right', 'right', 'reduce', 'reduce', 'reduce', 'shift']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'doughnut_buffer'], ['[root]_stack', 'doughnut_buffer']] ....
+Parser Dependencies:('[ROOT]', 'doughnut')('doughnut', 'A')('person', 'a')('using', 'person')('using', 'is')('using', 'see')('see', 'to')('see', 'out')('out', 'of')
+
+Ground Truth Dependencies:('[ROOT]', 'doughnut')('doughnut', 'A')('doughnut', 'using')('doughnut', '.')('person', 'a')('using', 'person')('using', 'is')('using', 'see')('see', 'that')('see', 'to')('see', 'out')('out', 'of')
+--------
+Fail case 2
+['[ROOT]', 'The', 'waters', 'are', 'very', 'choppy', 'today', 'which', 'is', 'making', 'it', 'hard', 'to', 'ride', '.']
+Actions: ['shift', 'left', 'shift', 'left', 'right', 'shift', 'left', 'right', 'reduce', 'right', 'shift', 'shift', 'left', 'left', 'reduce', 'reduce', 'shift', 'shift', 'left', 'right', 'shift', 'left', 'right', 'reduce', 'reduce', 'shift']
+Features: [['[root]_stack', 'the_buffer'], ['the_stack', 'waters_buffer'], ['[root]_stack', 'waters_buffer']] ....
+Parser Dependencies:('[ROOT]', 'are')('waters', 'The')('are', 'waters')('are', 'choppy')('are', 'today')('choppy', 'very')('making', 'which')('making', 'is')('making', 'hard')('hard', 'it')('hard', 'ride')('ride', 'to')
+
+Ground Truth Dependencies:('[ROOT]', 'are')('waters', 'The')('waters', 'making')('are', 'waters')('are', 'choppy')('are', 'today')('are', '.')('choppy', 'very')('making', 'which')('making', 'is')('making', 'hard')('hard', 'it')('hard', 'ride')('ride', 'to')
+--------
+Fail case 3
+['[ROOT]', 'A', 'woman', 'holding', 'three', 'bags', 'stands', 'by', 'the', 'open', 'doors', 'of', 'a', 'subway', 'car', ',', 'through', 'which', 'other', 'people', 'can', 'be', 'seen', '.']
+Actions: ['shift', 'left', 'shift', 'right', 'shift', 'left', 'right', 'reduce', 'reduce', 'left', 'right', 'right', 'shift', 'shift', 'left', 'left', 'right', 'right', 'shift', 'shift', 'left', 'left', 'right', 'reduce', 'reduce', 'reduce', 'reduce', 'right', 'shift', 'right', 'shift', 'left', 'shift', 'shift', 
+'shift', 'left', 'left', 'left', 'reduce', 'left', 'reduce', 'reduce', 'shift', 'shift']
+Features: [['[root]_stack', 'a_buffer'], ['a_stack', 'woman_buffer'], ['[root]_stack', 'woman_buffer']] ....
+Parser Dependencies:('[ROOT]', 'stands')('woman', 'A')('woman', 'holding')('holding', 'bags')('bags', 'three')('stands', 'woman')('stands', 'by')('stands', ',')('by', 'doors')('doors', 'the')('doors', 'open')('doors', 'of')('of', 'car')('car', 'a')('car', 'subway')('through', 'which')('people', 'other')('seen', 'through')('seen', 'people')('seen', 'can')('seen', 'be')
+Ground Truth Dependencies:('[ROOT]', 'stands')('woman', 'A')('woman', 'holding')('woman', 'seen')('holding', 'bags')('bags', 'three')('stands', 'woman')('stands', 'by')('stands', ',')('stands', '.')('by', 'doors')('doors', 'the')('doors', 'open')('doors', 'of')('of', 'car')('car', 'a')('car', 'subway')('through', 'which')('people', 'other')('seen', 'through')('seen', 'people')('seen', 'can')('seen', 'be')
+--------
+Total fails: 9, Total success: 19991
